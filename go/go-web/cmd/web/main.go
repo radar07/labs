@@ -19,25 +19,23 @@ func main() {
 	}
 	defer file.Close()
 
+	addr := flag.String("addr", ":4000", "HTTP network address")
+	flag.Parse()
+
 	infoLog := log.New(file, "INFO:\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR:\t", log.Ldate|log.Ltime|log.Lshortfile)
+
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
 	}
 
-	addr := flag.String("addr", ":4000", "HTTP network address")
-	flag.Parse()
+	srv := &http.Server{
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  app.routes(),
+	}
 
-	// If `NewServeMux` is specified it will use `DefaultServeMux`
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.home)
-
-	// Serve Static Files
-	mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./ui/static"))))
-
-	// mux.HandleFunc("/posts", posts)
-	// mux.HandleFunc("/posts?id=3", getPost)
 	infoLog.Printf("Listening on port", *addr)
-	errorLog.Fatal(http.ListenAndServe(*addr, mux))
+	errorLog.Fatal(srv.ListenAndServe())
 }
