@@ -1,14 +1,7 @@
-<html>
-<head></head>
-<body>
-<header>this is the header</header>
+{{template "base" .}}
 
-<nav>
-  <a href="/">Home</a>
-</nav>
+{{define "title"}}My site!{{end}}
 
-<section></section>
-
-<footer>this is the footer</footer>
-</body>
-</html>
+{{define "body"}}
+<h3>Welcome to my corner of the internet</h3>
+{{end}}

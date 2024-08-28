@@ -1,0 +1,30 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>{{template "title" .}}</title>
+
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+  </head>
+  <body>
+    <header>
+      <h1><a href='/'>My site</a></h1>
+    </header>
+    <nav>
+      <a href='/'>Home</a>
+    </nav>
+    <section>
+      {{template "body" .}}
+    </section>
+
+  <!-- This is same as `template` except it provides default content when the template doesn't exist -->
+    {{block "name" .}}
+    <p aligh="center">Pranav RK!!!</p>
+    {{end}}
+
+    {{template "footer" .}}
+  </body>
+</html>
+{{end}}
