@@ -2,14 +2,13 @@ package main
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Error(w, "Page not found", 404)
+		app.notFound(w)
 		return
 	}
 
@@ -21,13 +20,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
+		app.serverError(w, err)
 		return
 	}
 
 	err = ts.Execute(w, nil)
 	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		app.clientError(w, http.StatusInternalServerError)
 		return
 	}
 
@@ -35,7 +34,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// w.Write([]byte("Hello, web"))
 }
 
-func posts(w http.ResponseWriter, r *http.Request) {
+func (app *application) posts(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("Page not found!"))
@@ -52,5 +51,4 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Page not found!"))
 		return
 	}
-
 }
