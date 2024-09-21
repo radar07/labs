@@ -1,4 +1,4 @@
-module go-huh
+module huh
 
 go 1.23.0
 
