@@ -34,13 +34,13 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// w.Write([]byte("Hello, web"))
 }
 
-func (app *application) posts(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("Page not found!"))
-		return
-	}
-}
+// func (app *application) posts(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method != "POST" {
+// 		w.WriteHeader(http.StatusNotFound)
+// 		w.Write([]byte("Page not found!"))
+// 		return
+// 	}
+// }
 
 func getPost(w http.ResponseWriter, r *http.Request) {
 	// Use `URL.Query` to get the the URL paramaters

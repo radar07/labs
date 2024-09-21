@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"go-web/pkg/models/snippets"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +15,7 @@ import (
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	posts    *snippets.Post
 }
 
 const (
