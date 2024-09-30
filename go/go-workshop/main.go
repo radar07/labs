@@ -5,12 +5,25 @@ import (
 	"sync"
 )
 
+type InMemoryDB struct {
+	Store map[string]map[string]Value
+}
+
+type Value struct {
+	value  string
+	expiry int
+}
+
 type person struct {
 	name string
 	age  int
 }
 
 func main() {
+	// db := make(map[string]map[string]Value)
+	// db["a"]["b"] = Value{value: "pranav"}
+	// fmt.Printf("%#v\n", db)
+
 	p := person{name: "Pranav", age: 25}
 	fmt.Printf("%+v\n", p)
 
@@ -43,4 +56,18 @@ func main() {
 
 	// Concurrency
 	_ = sync.WaitGroup{}
+
+	// Loops - for loops only
+	for i := 1; i <= 10; i++ {
+		fmt.Println(i)
+	}
+
+	switch 1 {
+	case 2:
+		fmt.Println("true")
+	case 3:
+		fmt.Println("false")
+	default:
+		fmt.Println("default")
+	}
 }
